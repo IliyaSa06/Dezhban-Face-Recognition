@@ -2,7 +2,7 @@
 
 An advanced face recognition-based attendance system with a modern user interface and MySQL database connectivity.
 
-
+<img width="1920" height="1015" alt="Image" src="https://github.com/user-attachments/assets/0ad03276-925e-4beb-86e5-57541f03f7b1" />
 
 
 ## Features
