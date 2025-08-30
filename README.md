@@ -1,6 +1,7 @@
 # Dezhban Face Recognition System
 
 An advanced face recognition-based attendance system with a modern user interface and MySQL database connectivity.
+![Uploading Screenshot (123).png…]()
 
 ## Features
 
