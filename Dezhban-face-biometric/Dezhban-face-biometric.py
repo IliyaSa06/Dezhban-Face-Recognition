@@ -12,7 +12,7 @@ import webbrowser
 from tkinter import font as tkfont
 import threading
 
-# تنظیمات اتصال به دیتابیس
+# Database connection settings
 db_config = {
     'host': '127.0.0.1',
     'user': 'root',
@@ -92,13 +92,13 @@ class ModernButton(tk.Canvas):
 class ModernApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("سیستم حضور و غیاب هوشمند دژبان")
+        self.title("Dezhban Attendance System")
         self.geometry("1000x700")
         self.configure(bg="#2a2a2a")
 
         # Load custom font
         try:
-            self.custom_font = tkfont.Font(family="IRANSans", size=12)
+            self.custom_font = tkfont.Font(family="Arial", size=12)
         except:
             self.custom_font = tkfont.Font(family="Helvetica", size=12)
 
@@ -108,7 +108,7 @@ class ModernApp(tk.Tk):
 
         # If no cameras found, show error and exit
         if not self.available_cameras:
-            messagebox.showerror("خطا", "هیچ دوربینی یافت نشد! لطفاً اتصال دوربین را بررسی کنید.")
+            messagebox.showerror("Error", "No camera found! Please check camera connection.")
             self.destroy()
             return
 
@@ -141,7 +141,7 @@ class ModernApp(tk.Tk):
         header_frame = tk.Frame(self, bg="#2a2a2a")
         header_frame.pack(fill=tk.X, padx=20, pady=(20, 10))
 
-        title_label = tk.Label(header_frame, text="سیستم حضور و غیاب هوشمند دژبان",
+        title_label = tk.Label(header_frame, text="Dezhban Attendance System",
                                font=(self.custom_font.actual()['family'], 18, 'bold'),
                                bg="#2a2a2a", fg="white")
         title_label.pack(side=tk.LEFT)
@@ -163,19 +163,19 @@ class ModernApp(tk.Tk):
         right_panel.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
         # Add controls to left panel
-        control_title = tk.Label(left_panel, text="منو عملیات",
+        control_title = tk.Label(left_panel, text="Operations Menu",
                                  font=(self.custom_font.actual()['family'], 12, 'bold'),
                                  bg="#3a3a3a", fg="white")
         control_title.pack(pady=(20, 10))
 
         # Buttons
-        btn1 = ModernButton(left_panel, text="ثبت کارمند جدید",
+        btn1 = ModernButton(left_panel, text="Register New Employee",
                             command=self.register_employee,
                             color="#4a6baf", hover_color="#3a5a9f",
                             width=220, height=45)
         btn1.pack(pady=10)
 
-        btn2 = ModernButton(left_panel, text="شروع حضور و غیاب",
+        btn2 = ModernButton(left_panel, text="Start Attendance",
                             command=self.start_attendance,
                             color="#4a8f7a", hover_color="#3a7f6a",
                             width=220, height=45)
@@ -186,13 +186,13 @@ class ModernApp(tk.Tk):
             camera_frame = tk.Frame(left_panel, bg="#3a3a3a")
             camera_frame.pack(pady=10)
 
-            tk.Label(camera_frame, text="انتخاب دوربین:",
+            tk.Label(camera_frame, text="Select Camera:",
                      bg="#3a3a3a", fg="white").pack(side=tk.TOP, anchor=tk.W)
 
             self.camera_var = tk.StringVar()
-            self.camera_var.set(f"دوربین 1 (شماره {self.available_cameras[0]})")
+            self.camera_var.set(f"Camera 1 (Index {self.available_cameras[0]})")
 
-            camera_options = [f"دوربین {i + 1} (شماره {cam})" for i, cam in enumerate(self.available_cameras)]
+            camera_options = [f"Camera {i + 1} (Index {cam})" for i, cam in enumerate(self.available_cameras)]
             camera_dropdown = ttk.Combobox(camera_frame, textvariable=self.camera_var,
                                            values=camera_options, state="readonly")
             camera_dropdown.pack(fill=tk.X, pady=5)
@@ -202,7 +202,7 @@ class ModernApp(tk.Tk):
         status_frame = tk.Frame(left_panel, bg="#2a2a2a")
         status_frame.pack(side=tk.BOTTOM, fill=tk.X, pady=20)
 
-        self.status_label = tk.Label(status_frame, text="آماده به کار...",
+        self.status_label = tk.Label(status_frame, text="Ready to work...",
                                      font=(self.custom_font.actual()['family'], 9),
                                      bg="#2a2a2a", fg="#aaaaaa")
         self.status_label.pack(pady=5)
@@ -219,7 +219,7 @@ class ModernApp(tk.Tk):
         log_frame = tk.Frame(right_panel, bg="#2a2a2a")
         log_frame.pack(fill=tk.X, padx=10, pady=(0, 10))
 
-        log_title = tk.Label(log_frame, text="گزارش فعالیت",
+        log_title = tk.Label(log_frame, text="Activity Log",
                              font=(self.custom_font.actual()['family'], 10),
                              bg="#2a2a2a", fg="white")
         log_title.pack(anchor=tk.W, padx=5, pady=5)
@@ -238,7 +238,7 @@ class ModernApp(tk.Tk):
         footer_frame = tk.Frame(self, bg="#2a2a2a")
         footer_frame.pack(fill=tk.X, padx=20, pady=(5, 10))
 
-        version_label = tk.Label(footer_frame, text="نسخه 2.0 - طراحی شده توسط شرکت صدرا رایانه نوین طبرستان",
+        version_label = tk.Label(footer_frame, text="Version 2.0 - Designed by Iliya Saiedi",
                                  font=(self.custom_font.actual()['family'], 8),
                                  bg="#2a2a2a", fg="#666666")
         version_label.pack(side=tk.LEFT)
@@ -247,9 +247,9 @@ class ModernApp(tk.Tk):
         selected_index = int(self.camera_var.get().split(" ")[1]) - 1
         if 0 <= selected_index < len(self.available_cameras):
             self.current_camera_index = selected_index
-            self.log_message(f"تغییر دوربین به دوربین {self.current_camera_index + 1}")
+            self.log_message(f"Changed camera to Camera {self.current_camera_index + 1}")
         else:
-            self.log_message("خطا در انتخاب دوربین")
+            self.log_message("Error in camera selection")
 
     def log_message(self, message):
         self.log_text.config(state=tk.NORMAL)
@@ -266,7 +266,7 @@ class ModernApp(tk.Tk):
             conn = mysql.connector.connect(**db_config)
             return conn
         except mysql.connector.Error as err:
-            self.log_message(f"خطای اتصال به دیتابیس: {err}")
+            self.log_message(f"Database connection error: {err}")
             return None
 
     def load_face_data(self):
@@ -283,26 +283,26 @@ class ModernApp(tk.Tk):
                     self.known_face_ids.append(employee_id)
                     self.known_face_names.append(name)
                 except Exception as e:
-                    self.log_message(f"خطا در بارگذاری داده چهره برای {name}: {e}")
+                    self.log_message(f"Error loading face data for {name}: {e}")
 
             cursor.close()
             conn.close()
-            self.log_message(f"بارگذاری داده‌ها کامل شد. {len(self.known_face_names)} چهره شناخته شده.")
+            self.log_message(f"Data loading completed. {len(self.known_face_names)} known faces.")
 
     def register_employee(self):
-        self.log_message("شروع فرآیند ثبت نام کارمند جدید")
+        self.log_message("Starting new employee registration process")
 
-        name = simpledialog.askstring("ثبت نام", "نام کارمند را وارد کنید:", parent=self)
+        name = simpledialog.askstring("Registration", "Enter employee name:", parent=self)
         if not name:
             return
 
-        employee_id = simpledialog.askstring("ثبت نام", "شناسه کارمندی را وارد کنید:", parent=self)
+        employee_id = simpledialog.askstring("Registration", "Enter employee ID:", parent=self)
         if not employee_id:
             return
 
         # Ask for image source
-        choice = messagebox.askquestion("منبع تصویر",
-                                        "آیا می‌خواهید تصویر را از فایل بارگذاری کنید؟\n(در غیر این صورت از دوربین عکس گرفته می‌شود)",
+        choice = messagebox.askquestion("Image Source",
+                                        "Do you want to upload image from file?\n(Otherwise, photo will be taken from camera)",
                                         parent=self)
 
         if choice == 'yes':
@@ -312,7 +312,7 @@ class ModernApp(tk.Tk):
 
     def upload_image_for_registration(self, name, employee_id):
         file_path = filedialog.askopenfilename(
-            title="انتخاب تصویر چهره",
+            title="Select Face Image",
             filetypes=[("Image files", "*.jpg *.jpeg *.png")]
         )
 
@@ -320,36 +320,31 @@ class ModernApp(tk.Tk):
             try:
                 image = cv2.imread(file_path)
                 if image is None:
-                    raise ValueError("فرمت فایل تصویر نامعتبر است")
+                    raise ValueError("Invalid image file format")
 
                 success, message = self.register_new_face(name, employee_id, image)
                 if success:
-                    messagebox.showinfo("موفق", "ثبت نام با موفقیت انجام شد")
-                    self.log_message(f"کارمند جدید ثبت شد: {name} (ID: {employee_id})")
+                    messagebox.showinfo("Success", "Registration completed successfully")
+                    self.log_message(f"New employee registered: {name} (ID: {employee_id})")
                 else:
-                    messagebox.showerror("خطا", message)
-                    self.log_message(f"خطا در ثبت نام: {message}")
+                    messagebox.showerror("Error", message)
+                    self.log_message(f"Registration error: {message}")
             except Exception as e:
-                messagebox.showerror("خطا", f"خطا در پردازش تصویر: {str(e)}")
-                self.log_message(f"خطا در پردازش تصویر: {str(e)}")
+                messagebox.showerror("Error", f"Image processing error: {str(e)}")
+                self.log_message(f"Image processing error: {str(e)}")
 
     def capture_image_for_registration(self, name, employee_id):
-        self.log_message(f"شروع ثبت نام برای {name} با شناسه {employee_id}")
+        self.log_message(f"Starting registration for {name} with ID {employee_id}")
 
         # Create registration window
         reg_window = tk.Toplevel(self)
-        reg_window.title("ثبت چهره جدید")
+        reg_window.title("Register New Face")
         reg_window.geometry("800x600")
         reg_window.configure(bg="#2a2a2a")
 
         # Header
         header = tk.Frame(reg_window, bg="#3a3a3a")
         header.pack(fill=tk.X, padx=10, pady=10)
-
-        # title = tk.Label(header, text=f"ثبت چهره برای: {name} (شناسه: {employee_id})",
-        #                  font=(self.custom_font.actual()['family'], 12, 'bold'),
-        #                  bg="#3a3a3a", fg="white")
-        # title.pack(pady=10)
 
         # Camera frame
         cam_frame = tk.Frame(reg_window, bg="#2a2a2a")
@@ -362,13 +357,13 @@ class ModernApp(tk.Tk):
         btn_frame = tk.Frame(reg_window, bg="#2a2a2a")
         btn_frame.pack(fill=tk.X, padx=20, pady=(0, 20))
 
-        btn_save = ModernButton(btn_frame, text="ذخیره تصویر",
+        btn_save = ModernButton(btn_frame, text="Save Image",
                                 command=lambda: self.save_face(reg_window, name, employee_id),
                                 color="#4a8f7a", hover_color="#3a7f6a",
                                 width=120, height=40)
         btn_save.pack(side=tk.RIGHT, padx=10)
 
-        btn_cancel = ModernButton(btn_frame, text="انصراف",
+        btn_cancel = ModernButton(btn_frame, text="Cancel",
                                   command=reg_window.destroy,
                                   color="#8f4a4a", hover_color="#7f3a3a",
                                   width=120, height=40)
@@ -409,11 +404,11 @@ class ModernApp(tk.Tk):
         if ret:
             success, message = self.register_new_face(name, employee_id, frame)
             if success:
-                messagebox.showinfo("موفق", "ثبت نام با موفقیت انجام شد", parent=window)
-                self.log_message(f"کارمند جدید ثبت شد: {name} (ID: {employee_id})")
+                messagebox.showinfo("Success", "Registration completed successfully", parent=window)
+                self.log_message(f"New employee registered: {name} (ID: {employee_id})")
             else:
-                messagebox.showerror("خطا", message, parent=window)
-                self.log_message(f"خطا در ثبت نام: {message}")
+                messagebox.showerror("Error", message, parent=window)
+                self.log_message(f"Registration error: {message}")
 
         self.cap.release()
         window.destroy()
@@ -423,7 +418,7 @@ class ModernApp(tk.Tk):
         face_locations = face_recognition.face_locations(rgb_image)
 
         if len(face_locations) == 0:
-            return False, "چهره‌ای در تصویر تشخیص داده نشد"
+            return False, "No face detected in the image"
 
         try:
             face_encoding = face_recognition.face_encodings(rgb_image, face_locations)[0]
@@ -444,18 +439,18 @@ class ModernApp(tk.Tk):
 
                 cursor.close()
                 conn.close()
-                return True, "ثبت نام با موفقیت انجام شد"
+                return True, "Registration completed successfully"
         except Exception as e:
-            return False, f"خطا: {str(e)}"
+            return False, f"Error: {str(e)}"
 
-        return False, "خطا در اتصال به دیتابیس"
+        return False, "Database connection error"
 
     def start_attendance(self):
-        self.log_message("شروع سیستم حضور و غیاب")
+        self.log_message("Starting attendance system")
 
         # Create attendance window
         att_window = tk.Toplevel(self)
-        att_window.title("سیستم حضور و غیاب")
+        att_window.title("Attendance System")
         att_window.geometry("800x600")
         att_window.configure(bg="#2a2a2a")
 
@@ -463,7 +458,7 @@ class ModernApp(tk.Tk):
         header = tk.Frame(att_window, bg="#3a3a3a")
         header.pack(fill=tk.X, padx=10, pady=10)
 
-        title = tk.Label(header, text="سیستم حضور و غیاب فعال",
+        title = tk.Label(header, text="Attendance System Active",
                          font=(self.custom_font.actual()['family'], 12, 'bold'),
                          bg="#3a3a3a", fg="white")
         title.pack(pady=10)
@@ -479,7 +474,7 @@ class ModernApp(tk.Tk):
         btn_frame = tk.Frame(att_window, bg="#2a2a2a")
         btn_frame.pack(fill=tk.X, padx=20, pady=(0, 20))
 
-        btn_stop = ModernButton(btn_frame, text="توقف سیستم",
+        btn_stop = ModernButton(btn_frame, text="Stop System",
                                 command=att_window.destroy,
                                 color="#8f4a4a", hover_color="#7f3a3a",
                                 width=150, height=40)
@@ -502,8 +497,8 @@ class ModernApp(tk.Tk):
 
                 for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
                     matches = face_recognition.compare_faces(self.known_face_encodings, face_encoding)
-                    name = "ناشناخته"
-                    employee_id = "ناشناخته"
+                    name = "Unknown"
+                    employee_id = "Unknown"
 
                     face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                     best_match_index = np.argmin(face_distances)
@@ -518,21 +513,21 @@ class ModernApp(tk.Tk):
                         if last_time is None or (current_time - last_time).seconds >= 5:
                             if self.mark_attendance(employee_id):
                                 self.last_attendance[employee_id] = current_time
-                                self.log_message(f"حضور ثبت شد: {name} در {current_time.strftime('%H:%M:%S')}")
+                                self.log_message(f"Attendance marked: {name} at {current_time.strftime('%H:%M:%S')}")
 
                     top *= 4
                     right *= 4
                     bottom *= 4
                     left *= 4
 
-                    color = (0, 255, 0) if name != "ناشناخته" else (0, 0, 255)
+                    color = (0, 255, 0) if name != "Unknown" else (0, 0, 255)
                     cv2.rectangle(frame, (left, top), (right, bottom), color, 2)
 
                     cv2.putText(frame, name, (left + 6, bottom - 30),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1)
 
-                    if name != "ناشناخته":
-                        cv2.putText(frame, "حاضر", (left + 6, bottom + 5),
+                    if name != "Unknown":
+                        cv2.putText(frame, "Present", (left + 6, bottom + 5),
                                     cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
 
             img = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -559,7 +554,7 @@ class ModernApp(tk.Tk):
                 conn.commit()
                 return True
             except Exception as e:
-                self.log_message(f"خطا در ثبت حضور: {e}")
+                self.log_message(f"Attendance marking error: {e}")
                 return False
             finally:
                 cursor.close()
