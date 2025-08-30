@@ -1,109 +1,69 @@
-Dezhban Smart Attendance System
+باشه ایلیا 👌 یه نمونه **README.md** برات می‌نویسم که می‌تونی توی گیت‌هاب پروژه **Dezhban** بذاری. این README شامل معرفی، ویژگی‌ها، نصب و توضیحات UI مدرن هست:
 
-This project is a smart attendance system built using image processing and face recognition.
-The user interface is developed with Tkinter, and all employee and attendance data are stored in MySQL.
+````markdown
+# Dezhban - Intelligent Face Recognition & Attendance System
 
-✨ Features
+Dezhban is a modern, AI-powered **face recognition and attendance system** designed for enterprises, educational institutes, and organizations.  
+It provides a **clean, futuristic, and responsive UI** that works seamlessly across desktop and mobile devices.
 
-Register new employees with a face image (via camera or file upload)
+---
 
-Store employee face encodings in the database
+## 🚀 Features
+- 🔹 **Face Recognition** with real-time camera feed  
+- 🔹 **Attendance Tracking** with automatic logs  
+- 🔹 **Multilingual UI** (English & Persian)  
+- 🔹 **Modern & Responsive Design** with live preview  
+- 🔹 **Database Integration** (MySQL support)  
+- 🔹 **Enterprise-Ready** with professional layout & smooth UX  
 
-Automatic employee recognition and attendance logging
+---
 
-Modern user interface with custom buttons
+## 🖼️ UI Concept
+The UI is designed with **minimalist aesthetics**, clean typography, and futuristic card-based components.  
+It includes:
+- Live video preview integration  
+- Elegant dashboard for attendance management  
+- Mobile-friendly design for accessibility  
 
-Multi-camera support (camera selection available)
+---
 
-Real-time activity logs and system status updates
+## 📦 Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/dezhban.git
+   cd dezhban
+````
 
-Attendance time saved in the database with employee ID
+2. Install dependencies:
 
-🛠️ Technologies & Libraries
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Python 3.x
+3. Run the application:
 
-OpenCV
- → Image processing & camera integration
+   ```bash
+   python main.py
+   ```
 
-face_recognition
- → Face detection & recognition
+---
 
-MySQL
- → Database
+## 🛠️ Tech Stack
 
-Tkinter
- → GUI
+* **Python** (OpenCV, Tkinter / CustomTkinter)
+* **MySQL** (for data storage)
+* **HTML + CSS** (for modern UI design concept)
+* **Multilingual support** (English / Persian)
 
-Pillow (PIL)
- → Image handling
+---
 
-pickle
- → Store & load face encoding data
+## 📖 Description
 
-⚙️ Installation & Setup
-1. Clone the project
-git clone https://github.com/USERNAME/Dezhban-Face-Attendance.git
-cd Dezhban-Face-Attendance
+Dezhban combines **AI-based face recognition** with a **professional and modern interface** to deliver a reliable and futuristic attendance solution.
+The design philosophy emphasizes **trust, innovation, and usability**, making it ideal for large organizations and enterprises.
 
-2. Install dependencies
-pip install opencv-python face-recognition mysql-connector-python pillow
+---
 
-
-⚠️ Note: face_recognition requires dlib
-.
-On Windows, it is recommended to install it using pre-built wheel packages.
-
-3. Create the database
-
-Run the following SQL commands in MySQL:
-
-CREATE DATABASE face_attendance;
-
-CREATE TABLE employees (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id VARCHAR(50) NOT NULL,
-    name VARCHAR(100) NOT NULL,
-    face_encoding LONGTEXT NOT NULL
-);
-
-CREATE TABLE attendance (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    employee_id VARCHAR(50) NOT NULL,
-    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-4. Configure database connection
-
-Update the db_config section in the main Python file:
-
-db_config = {
-    'host': '127.0.0.1',
-    'user': 'root',
-    'password': 'YOUR_PASSWORD',
-    'database': 'face_attendance'
-}
-
-5. Run the program
-python main.py
-
-📷 How it works
-
-Register New Employee → Add a new employee using the camera or by uploading an image file.
-
-Start Attendance System → The system detects and recognizes employees in real time, logging their attendance automatically.
-
-A log of activities is displayed inside the app.
-
-📌 Screenshots
-
-(You can add screenshots of the app here later)
-
-👨‍💻 Developer
-
-Developed by Sadra Rayaneh Novin Tabarestan
-Version: 2.0
-
-📜 License
+## 📜 License
 
 This project is licensed under the MIT License.
